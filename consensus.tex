@@ -1,0 +1,68 @@
+    The consensus is the most crucial part of decentralized peer-to-peer network and is
+imperative for a permission-less blockchain. Due to physical hardware and human factors,
+latency, downtime and malicious attack are prevalent among distributed systems. When
+two nodes have inconsistent block records, a fork occurs. This can cause double-spending: if
+node A contains a transaction which is not found on node B, then who is to make the
+determination of whether or not the transaction was valid? To address this, a blockchain
+requires every participant follow the exact same rules in order to keep their state stay
+synchronized. Currently, common blockchain consensus mechanisms include Proof-of-Work,
+Proof-of-Stake and Byzantine Fault Tolerance. 
+Proof-of-work was first proposed by Hashcash as an anti-spamming technique, and
+later saw greater adoption in Bitcoin[1] and Ethereum[2]. It is the classic and prevalent
+consensus mechanism within the current blockchain landscape. The principle of Proof-ofWork
+requires a hard-to-obtain, while easy-to-verify hash value to be located by a node
+before it is accepted by its peers. This method is designed in order to prevent the 'Sybil
+attack', wherein an attacker can produce millions of fake nodes to replace honest ones.
+Specifically, a Proof-of-Work is obtained through repeated calculations of the block header
+until a hash less than a certain difficulty is found, i.e., the “mining” process. All nodes
+consider the blockchain containing the most recent Proof-of-Work to be the “real” chain.
+Therefore, to control the blockchain, an attacker must possess more than 51% total
+computing power of the entire network. This mechanism is also called permission-less
+consensus, which allows nodes to join and exit anonymously at any time.
+Although Proof-of-Work is one of the most secure permission-less consensus algorithms
+to date, its drawbacks will likely hinder mainstream adaptation for high volume
+applications that coincide with mainstream adoption. Currently, The Bitcoin network
+generates a block every ten minutes, with a maximum block size of 1MB. This has
+restricted Bitcoin’s transaction speed to no more than 7 transactions per second. Moreover,
+because of Bitcoin’s inherent forking problem, a transaction can be considered secure only
+after six confirmations, which takes a minimum of an hour. This performance is intolerable
+for modern payment processing. In contrast, VisaNet is capable of processing 2000
+transactions per second on average and may handle over 10000 transactions per second
+during its peak. However, nearly transactions are validated in one-of-two secure facilities in
+the U.S. The implications of raising the block-size have been debated within the Bitcoin
+community for several years now. However, successfully doing so would require a
+significantly large sum of the network to change their software, effectively creating a fork of
+the Bitcoin blockchain, until the entire network resolves the leader. Two popular and
+seemingly acceptable solutions are side-chains, and lightning networks, both of which
+represent off-chain solutions and inevitably bring centralization and security problems.
+Because Proof-of-Work blockchains currently consume a relatively large amount of
+energy, there have also been proposals of consensus on the ownership of stakes[3], or, 'coins'.
+In this schema, nodes express their acceptance of a transaction by locking up a portion of
+their coins as security deposit. These nodes, also called stakeholders, serve as validators for
+all incoming transactions. If a stakeholder commits fraud, its deposit is forfeited as
+punishment. However, since developers control the initial distribution of coins, Proof-ofStake
+is inherently more centralized than Proof-of-Work. Stakeholders tend to store more
+tokens, reducing the supply of tokens in circulation. Moreover, current implementations of 
+Proof-of-Stake have proven far less secure than Proof-of-Work because any stakeholder can
+initiate a nothing-at-stake attack by signing multiple blockchain histories. The centralized
+stakeholders also create single-point-of-failure. If stakeholders collude together or are taken
+down by hackers or authority, the entire network goes down as well. Although Proof-ofStake
+has been proposed as early as 2012 by Peercoin[4], it has not seen as wide of an
+acceptance as the Proof-of-Work mechanism.
+The consensus problem may also be generalized as the Byzantine general’s problem,
+wherein nodes within a system can exhibit any abnormal behavior while the system must
+continue to function normally. It has been proven that in order to tolerate f number of
+Byzantine nodes, at least 3f+1 nodes must exist in the system. Within the peer-to-peer
+network of the blockchain, nodes can be disconnected, shutdown or broadcast malicious
+information. It is impossible to predict their behavior. In 1999, researchers at MIT for the
+first time published the Practical Byzantine Fault Tolerance algorithm[5], which reduced the
+complexity of Byzantine algorithm from exponential to polynomial. This algorithm chooses
+one node as primary and a group of nodes as backup. The consensus is achieved after
+multiple rounds of voting amongst nodes. This method was originally designed for internal
+closed systems, such as flight control system of airplanes and data center clusters. It is not
+suitable for decentralized, peer-to-peer applications such as cryptocurrencies. Better-known
+examples of Byzantine fault tolerance based blockchains are Hyperledger, Tendermint[6]
+and Stellar[7]. In these examples, traditional mining is abandoned and transaction speeds of
+up to 100,000 tx/s are possible. Similarly, PBFT does not support nodes to join and exit the
+network at will. And when the total number of nodes go beyond 20, the entire network
+drastically slows down [8]. 

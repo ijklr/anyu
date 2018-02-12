@@ -1,0 +1,315 @@
+%%% DOCUMENTCLASS 
+%%%-------------------------------------------------------------------------------
+
+\documentclass[
+a4paper, % Stock and paper size.
+11pt, % Type size.
+% article,
+% oneside, 
+onecolumn, % Only one column of text on a page.
+% openright, % Each chapter will start on a recto page.
+% openleft, % Each chapter will start on a verso page.
+openany, % A chapter may start on either a recto or verso page.
+]{memoir}
+
+%%% PACKAGES 
+%%%------------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc} % If utf8 encoding
+% \usepackage[lantin1]{inputenc} % If not utf8 encoding, then this is probably the way to go
+\usepackage[T1]{fontenc}    %
+\usepackage[english]{babel} % English please
+\usepackage[final]{microtype} % Less badboxes
+
+% \usepackage{kpfonts} %Font
+
+\usepackage{amsmath,amssymb,mathtools} % Math
+
+% \usepackage{tikz} % Figures
+\usepackage{graphicx} % Include figures
+
+% code syntax 
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{minted}
+
+%%% PAGE LAYOUT 
+%%%------------------------------------------------------------------------------
+
+\setlrmarginsandblock{0.15\paperwidth}{*}{1} % Left and right margin
+\setulmarginsandblock{0.2\paperwidth}{*}{1}  % Upper and lower margin
+\checkandfixthelayout
+
+%%% SECTIONAL DIVISIONS
+%%%------------------------------------------------------------------------------
+
+\maxsecnumdepth{subsection} % Subsections (and higher) are numbered
+\setsecnumdepth{subsection}
+
+\makeatletter %
+\makechapterstyle{standard}{
+  \setlength{\beforechapskip}{0\baselineskip}
+  \setlength{\midchapskip}{1\baselineskip}
+  \setlength{\afterchapskip}{8\baselineskip}
+  \renewcommand{\chapterheadstart}{\vspace*{\beforechapskip}}
+  \renewcommand{\chapnamefont}{\centering\normalfont\Large}
+  \renewcommand{\printchaptername}{\chapnamefont \@chapapp}
+  \renewcommand{\chapternamenum}{\space}
+  \renewcommand{\chapnumfont}{\normalfont\Large}
+  \renewcommand{\printchapternum}{\chapnumfont \thechapter}
+  \renewcommand{\afterchapternum}{\par\nobreak\vskip \midchapskip}
+  \renewcommand{\printchapternonum}{\vspace*{\midchapskip}\vspace*{5mm}}
+  \renewcommand{\chaptitlefont}{\centering\bfseries\LARGE}
+  \renewcommand{\printchaptertitle}[1]{\chaptitlefont ##1}
+  \renewcommand{\afterchaptertitle}{\par\nobreak\vskip \afterchapskip}
+}
+\makeatother
+
+\chapterstyle{standard}
+
+\setsecheadstyle{\normalfont\large\bfseries}
+\setsubsecheadstyle{\normalfont\normalsize\bfseries}
+\setparaheadstyle{\normalfont\normalsize\bfseries}
+\setparaindent{0pt}\setafterparaskip{0pt}
+
+%%% FLOATS AND CAPTIONS
+%%%------------------------------------------------------------------------------
+
+\makeatletter                  % You do not need to write [htpb] all the time
+\renewcommand\fps@figure{htbp} %
+\renewcommand\fps@table{htbp}  %
+\makeatother                   %
+
+\captiondelim{\space } % A space between caption name and text
+\captionnamefont{\small\bfseries} % Font of the caption name
+\captiontitlefont{\small\normalfont} % Font of the caption text
+
+\changecaptionwidth          % Change the width of the caption
+\captionwidth{1\textwidth} %
+
+%%% ABSTRACT
+%%%------------------------------------------------------------------------------
+
+\renewcommand{\abstractnamefont}{\normalfont\small\bfseries} % Font of abstract title
+\setlength{\absleftindent}{0.1\textwidth} % Width of abstract
+\setlength{\absrightindent}{\absleftindent}
+
+%%% HEADER AND FOOTER 
+%%%------------------------------------------------------------------------------
+
+\makepagestyle{standard} % Make standard pagestyle
+
+\makeatletter                 % Define standard pagestyle
+\makeevenfoot{standard}{}{}{} %
+\makeoddfoot{standard}{}{}{}  %
+\makeevenhead{standard}{\bfseries\thepage\normalfont\qquad\small\leftmark}{}{}
+\makeoddhead{standard}{}{}{\small\rightmark\qquad\bfseries\thepage}
+% \makeheadrule{standard}{\textwidth}{\normalrulethickness}
+\makeatother                  %
+
+\makeatletter
+\makepsmarks{standard}{
+\createmark{chapter}{both}{shownumber}{\@chapapp\ }{ \quad }
+\createmark{section}{right}{shownumber}{}{ \quad }
+\createplainmark{toc}{both}{\contentsname}
+\createplainmark{lof}{both}{\listfigurename}
+\createplainmark{lot}{both}{\listtablename}
+\createplainmark{bib}{both}{\bibname}
+\createplainmark{index}{both}{\indexname}
+\createplainmark{glossary}{both}{\glossaryname}
+}
+\makeatother                               %
+
+\makepagestyle{chap} % Make new chapter pagestyle
+
+\makeatletter
+\makeevenfoot{chap}{}{\small\bfseries\thepage}{} % Define new chapter pagestyle
+\makeoddfoot{chap}{}{\small\bfseries\thepage}{}  %
+\makeevenhead{chap}{}{}{}   %
+\makeoddhead{chap}{}{}{}    %
+% \makeheadrule{chap}{\textwidth}{\normalrulethickness}
+\makeatother
+
+\nouppercaseheads
+\pagestyle{standard}               % Choosing pagestyle and chapter pagestyle
+\aliaspagestyle{chapter}{chap} %
+
+%%% NEW COMMANDS
+%%%------------------------------------------------------------------------------
+
+\newcommand{\p}{\partial} %Partial
+% Or what ever you want
+
+%%% TABLE OF CONTENTS
+%%%------------------------------------------------------------------------------
+
+\maxtocdepth{subsection} % Only parts, chapters and sections in the table of contents
+\settocdepth{subsection}
+
+\AtEndDocument{\addtocontents{toc}{\par}} % Add a \par to the end of the TOC
+
+%%% INTERNAL HYPERLINKS
+%%%-------------------------------------------------------------------------------
+
+\usepackage{hyperref}   % Internal hyperlinks
+\hypersetup{
+pdfborder={0 0 0},      % No borders around internal hyperlinks
+pdfauthor={I am the Author} % author
+}
+\usepackage{memhfixc}   %
+
+%%% THE DOCUMENT
+%%% Where all the important stuff is included!
+%%%-------------------------------------------------------------------------------
+
+\author{HDC Team @ hadeschain.org}
+\title{Hades Chain: A highly scalable hybrid blockchain platform for decentralized financial \& data-intensive applications}
+
+\usepackage{lipsum} % Just to put in some text
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\begin{abstract}
+We present an implementation of a new protocol(Hades Protocol) as a reliable, scalable platform for blockchain applications. First, we outline the limitations of current blockchain technologies and propose our solution: Hades Chain. Hades Chain is the first practical implemtation of the Hades Protocol, which addresses the biggest limitation of the most prominent cryptocurrencies such as bitcoin and ethereum - failure to achieve sufficient transaction throughput, or an application that leverages one. Hades Protocol is a hybrid consensus algorithm merging both PPoW(Proof of Proof of Work) and DPoS(Delegated Proof of Stake). In addition, we present a smart contract to show the unique mechanism of the Zero-Trust Collateralized Transaction System. 
+\end{abstract}
+\clearpage
+
+\tableofcontents*
+
+\clearpage
+
+\chapter{Introduction}
+\input{introduction.tex}
+
+\mainmatter
+
+% Using typewriter font: \ttfamily inside \lstset
+
+\chapter{Scalable Blockchain Systems}
+\lipsum[1-10]
+\chapter{Consensus Algorithm}
+\input{consensus.tex}
+\lipsum[10 -25]
+\chapter{Anonymization and Privacy}
+\lipsum[20 -35]
+\chapter{The Hades Virtual Machine}
+\lipsum[30 -45]
+\chapter{Zero-Trust Collateralized Transactions}
+\lipsum[40 -55]
+\chapter{Hades Protocol}
+\lipsum[50 -65]
+\chapter{User Level ICO}
+\lipsum[60 -75]
+\chapter{HDC Mining}
+\lipsum[70 -85]
+\chapter{HDC Lottery}
+\lipsum[80 -95]
+\chapter{Artificial Intelligence Smart Contracts}
+\lipsum[90-105]
+\chapter{Regulation}
+\lipsum[100 - 105]
+\chapter{Futuer-proof}
+\lipsum[110 -125]
+\appendix
+\chapter{Calculations}
+\begin{minted}{javascript}
+{
+"data": ["blob", "list", "blob"],
+// lists have an array of object types as data
+"links": [
+{ "hash": "XLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x",
+"size": 189458 },
+{ "hash": "XLHBNmRQ5sJJrdMPuu48pzeyTtRo39tNDR5",
+"size": 19441 },
+{ "hash": "XLWVQDqxo9Km9zLyquoC9gAP8CL1gWnHZ7z",
+"size": 5286 }
+// lists have no names in links
+]
+}
+\end{minted}
+
+
+\chapter{Language Reference: C++ API}
+\begin{minted}{c++}
+// Funtion that implements Dijkstra's single source shortest path algorithm
+// for a graph represented using adjacency matrix representation
+void dijkstra(int graph[V][V], int src)
+{
+     int dist[V];     // The output array.  dist[i] will hold the shortest
+                      // distance from src to i
+  
+     bool sptSet[V]; // sptSet[i] will true if vertex i is included in shortest
+                     // path tree or shortest distance from src to i is finalized
+  
+     // Initialize all distances as INFINITE and stpSet[] as false
+     for (int i = 0; i < V; i++)
+        dist[i] = INT_MAX, sptSet[i] = false;
+  
+     // Distance of source vertex from itself is always 0
+     dist[src] = 0;
+  
+     // Find shortest path for all vertices
+     for (int count = 0; count < V-1; count++)
+     {
+       // Pick the minimum distance vertex from the set of vertices not
+       // yet processed. u is always equal to src in first iteration.
+       int u = minDistance(dist, sptSet);
+  
+       // Mark the picked vertex as processed
+       sptSet[u] = true;
+  
+       // Update dist value of the adjacent vertices of the picked vertex.
+       for (int v = 0; v < V; v++)
+  
+         // Update dist[v] only if is not in sptSet, there is an edge from 
+         // u to v, and total weight of path from src to  v through u is 
+         // smaller than current value of dist[v]
+         if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX 
+                                       && dist[u]+graph[u][v] < dist[v])
+            dist[v] = dist[u] + graph[u][v];
+     }
+  
+     // print the constructed distance array
+     printSolution(dist, V);
+}
+\end{minted}
+\chapter{Language Reference: Java API}
+\begin{minted}{java}
+public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
+    source.setDistance(0);
+ 
+    Set<Node> settledNodes = new HashSet<>();
+    Set<Node> unsettledNodes = new HashSet<>();
+ 
+    unsettledNodes.add(source);
+ 
+    while (unsettledNodes.size() != 0) {
+        Node currentNode = getLowestDistanceNode(unsettledNodes);
+        unsettledNodes.remove(currentNode);
+        for (Entry < Node, Integer> adjacencyPair: 
+          currentNode.getAdjacentNodes().entrySet()) {
+            Node adjacentNode = adjacencyPair.getKey();
+            Integer edgeWeight = adjacencyPair.getValue();
+            if (!settledNodes.contains(adjacentNode)) {
+                calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+                unsettledNodes.add(adjacentNode);
+            }
+        }
+        settledNodes.add(currentNode);
+    }
+    return graph;
+}
+\end{minted}
+\backmatter
+
+%%% BIBLIOGRAPHY
+%%% -------------------------------------------------------------
+
+% \bibliographystyle{utphysics}
+% \bibliography{ref}
+
+\end{document}
